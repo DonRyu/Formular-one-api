@@ -12,7 +12,7 @@ namespace Formular_one_api.Data
         public DbSet<Driver> Drivers { get; set; }
         public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
         {
-
+            return;
         }
     }
 }
