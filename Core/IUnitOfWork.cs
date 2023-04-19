@@ -3,7 +3,7 @@ namespace Formular_one_api;
 
 public interface IUnitOfWork
 {
- IDriverRepository Drivers { get; }
- Task CompleteAsync();
- 
+    IDriverRepository Drivers { get; }
+    Task CompleteAsync();
+
 }
