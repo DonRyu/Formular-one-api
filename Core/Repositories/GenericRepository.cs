@@ -44,5 +44,6 @@ namespace Formular_one_api.Core.Repositories
             _dbSet.Remove(entity);
             return true;
         }
+
     }
 }
