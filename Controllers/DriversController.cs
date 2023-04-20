@@ -30,7 +30,7 @@ namespace Formular_one_api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var driver = await _unitOfWork.Drivers.GetById(x => x.Id == id);
+            var driver = await _unitOfWork.Drivers.GetById(id);
             if (driver == null)
             {
                 return NotFound();
@@ -42,8 +42,8 @@ namespace Formular_one_api.Controllers
         [Route("AddDriver")]
         public async Task<IActionResult> AddDriver(Driver driver)
         {
-            _context.Drivers.Add(driver);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.Drivers.Add(driver);
+            await _unitOfWork.CompleteAsync();
             return Ok();
         }
 
@@ -51,13 +51,13 @@ namespace Formular_one_api.Controllers
         [Route("DeleteDriver/{id}")]
         public async Task<IActionResult> DeleteDriver(int id)
         {
-            var driver = await _context.Drivers.FirstOrDefaultAsync(x => x.Id == id);
+            var driver = await _unitOfWork.Drivers.GetById(id);
             if (driver == null)
             {
                 return NotFound();
             }
-            _context.Drivers.Remove(driver);
-            await _context.SaveChangesAsync();
+            await _unitOfWork.Drivers.Delete(driver);
+            await _unitOfWork.CompleteAsync();
             return Ok();
         }
 
@@ -65,14 +65,11 @@ namespace Formular_one_api.Controllers
         [Route("UpdateDriver/{id}")]
         public async Task<IActionResult> UpdateDriver(int id, Driver driver)
         {
-            var existDriver = await _context.Drivers.FirstOrDefaultAsync(x => x.Id == id);
-            if (existDriver == null)return NotFound();
-        
-            existDriver.Name = driver.Name;
-            existDriver.DriverNumber = driver.DriverNumber;
-            existDriver.Team = driver.Team;
+            var existDriver = await _unitOfWork.Drivers.GetById(driver.Id);
+            if (existDriver == null) return NotFound();
 
-            await _context.SaveChangesAsync();
+            await _unitOfWork.Drivers.Update(driver);
+            await _unitOfWork.CompleteAsync();
             return Ok();
         }
     };
