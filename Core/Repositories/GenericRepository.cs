@@ -21,7 +21,8 @@ namespace Formular_one_api.Core.Repositories
         }
         public virtual async Task<IEnumerable<T>> All()
         {
-            return await _dbSet.ToListAsync();
+            // do not track the object
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
         public virtual async Task<T?> GetById(int id)
         {

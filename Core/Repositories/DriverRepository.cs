@@ -28,6 +28,18 @@ namespace Formular_one_api.Core.Repositories
 
         }
 
+        public override async Task<Driver?> GetById(int id)
+        {
+            try
+            {
+                return await _context.Drivers.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
         public async Task<Driver?> GetByDriverNb(int driverNb)
         {
             try
