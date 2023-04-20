@@ -15,7 +15,7 @@ namespace Formular_one_api.Controllers
     public class DriversController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public DriversController(UnitOfWork unitOfWork)
+        public DriversController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
