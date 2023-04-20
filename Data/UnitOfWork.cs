@@ -7,14 +7,14 @@ using Formular_one_api.Core.Repositories;
 
 namespace Formular_one_api.Data
 {
-    public class UniotOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly ApiDbContext _context;
         private readonly ILogger _logger;
 
         public IDriverRepository Drivers { get; private set; }
 
-        public UniotOfWork(ApiDbContext context, ILogger logger)
+        public UnitOfWork(ApiDbContext context, ILogger logger)
         {
             _context = context;
             _logger = logger;

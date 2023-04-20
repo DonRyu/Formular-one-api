@@ -6,8 +6,9 @@ using Formular_one_api.Models;
 
 namespace Formular_one_api.Core
 {
-    public interface IDriverRepository
+    public interface IDriverRepository : IGenericRepository<Driver>
     {
+
         Task<Driver?> GetByDriverNb(int driverNb);
     }
 }

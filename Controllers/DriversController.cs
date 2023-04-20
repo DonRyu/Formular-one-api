@@ -14,25 +14,23 @@ namespace Formular_one_api.Controllers
     [Route("[controller]")]
     public class DriversController : ControllerBase
     {
-
-        private readonly ApiDbContext _context;
-        public DriversController(ApiDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        public DriversController(UnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _context.Drivers.ToListAsync());
+            return Ok(await _unitOfWork.Drivers.All());
         }
 
         [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var driver = await _context.Drivers.FirstOrDefaultAsync(x => x.Id == id);
+            var driver = await _unitOfWork.Drivers.GetById(x => x.Id == id);
             if (driver == null)
             {
                 return NotFound();
