@@ -43,6 +43,7 @@ namespace Formular_one_api.Controllers
         public async Task<IActionResult> AddDriver(Driver driver)
         {
             await _unitOfWork.Drivers.Add(driver);
+            
             await _unitOfWork.CompleteAsync();
             return Ok();
         }
